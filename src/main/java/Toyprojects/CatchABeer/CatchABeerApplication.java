@@ -1,0 +1,13 @@
+package Toyprojects.CatchABeer;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CatchABeerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CatchABeerApplication.class, args);
+	}
+
+}

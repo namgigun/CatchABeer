@@ -12,4 +12,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class RoomService {
+    private final RoomRepository roomRepository;
+
+    public Room findRoom(Long id) {
+        Optional<Room> result = roomRepository.findById(id);
+        return result.orElseThrow(null);
+    }
 }

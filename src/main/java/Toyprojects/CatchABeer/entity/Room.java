@@ -1,5 +1,6 @@
 package Toyprojects.CatchABeer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class Room {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "room")
     private List<Member> members = new ArrayList<>();
 

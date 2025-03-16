@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
     @Autowired MemberService memberService;
 
+    // 회원가입 테스트
     @Test
     public void testJoin() {
         Member member = new Member("member1", "1234");

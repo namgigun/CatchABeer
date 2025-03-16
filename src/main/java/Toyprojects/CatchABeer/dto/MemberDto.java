@@ -1,4 +1,4 @@
-package Toyprojects.CatchABeer;
+package Toyprojects.CatchABeer.dto;
 
 import lombok.Data;
 import lombok.ToString;

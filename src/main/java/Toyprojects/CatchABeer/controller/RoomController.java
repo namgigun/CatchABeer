@@ -24,13 +24,15 @@ public class RoomController {
     @GetMapping("room/{roomId}")
     public String roomInfo(@PathVariable("roomId") Long roomId, Model model) {
         Room room = roomService.findRoom(roomId);
+        List<Event> events = eventService.findByRoom(room);
         model.addAttribute("members", room.getMembers());
+        model.addAttribute("events", events);
         return "room";
     }
 
     // 일정 추가
     @PostMapping("room/{roomId}/addEvent")
-    public String addEvent(@ModelAttribute EventDto eventDto, @PathVariable Long roomId) {
+    public String addEvent(@RequestBody EventDto eventDto, @PathVariable Long roomId) {
         Room room = roomService.findRoom(roomId);
         eventDto.setRoom(room);
         Event event = new Event(eventDto);
@@ -39,6 +41,4 @@ public class RoomController {
         eventService.save(event);
         return "room";
     }
-
-    // 해당 룸에 대한 일정 정보를 불러오기
 }

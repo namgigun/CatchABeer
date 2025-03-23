@@ -1,14 +1,18 @@
 package Toyprojects.CatchABeer.service;
 
 import Toyprojects.CatchABeer.entity.Event;
+import Toyprojects.CatchABeer.entity.Room;
 import Toyprojects.CatchABeer.repository.EventRepository;
 import Toyprojects.CatchABeer.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class EventService {
     private final EventRepository eventRepository;
 
@@ -16,5 +20,9 @@ public class EventService {
     @Transactional
     public void save(Event event) {
         eventRepository.save(event);
+    }
+
+    public List<Event> findByRoom(Room room) {
+        return eventRepository.findByRoomId(room.getId());
     }
 }

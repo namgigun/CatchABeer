@@ -24,9 +24,9 @@ public class Event {
 
     public Event(EventDto eventDto) {
         this.room = eventDto.getRoom();
-        this.content = eventDto.getCalendar_content();
-        this.startDate = eventDto.getCalendar_start_date();
-        this.endDate = eventDto.getCalendar_end_date();
+        this.content = eventDto.getTitle();
+        this.startDate = eventDto.getStart();
+        this.endDate = eventDto.getEnd();
         room.addEvent(this);
     }
 

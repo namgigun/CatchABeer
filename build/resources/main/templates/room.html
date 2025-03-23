@@ -17,9 +17,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
 
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
+            var eventsData = /*[[${events}]]*/ [];
+            var events = eventsData.map(e => ({
+                title : e.content,
+                start : e.startDate,
+                end : e.endDate
+            }))
 
             // 캘린더 객체를 전역 변수로 설정
             window.calendar = new FullCalendar.Calendar(calendarEl, {
@@ -27,17 +33,11 @@
                 headerToolbar: {
                     center: 'addEventButton' // 버튼 추가
                 },
-                events: [ // 기존 일정 데이터 (DB 연동 가능)
-                    {
-                        title: '일정',
-                        start: '2021-05-26',
-                        end: '2021-05-27'
-                    }
-                ],
+                events: events,
                 customButtons: {
                     addEventButton: {
                         text: "일정 추가",
-                        click: function() {
+                        click: function () {
                             $("#calendarModal").modal("show"); // 모달 표시
                         }
                     }
@@ -47,10 +47,14 @@
             calendar.render();
 
             // 모달의 "추가" 버튼 클릭 시 일정 추가
-            $("#addCalendar").on("click", function() {
+            $("#addCalendar").on("click", function () {
                 var content = $("#calendar_content").val();
                 var start_date = $("#calendar_start_date").val();
                 var end_date = $("#calendar_end_date").val();
+
+                // 현재 페이지 URL에서 roomId 추출
+                var currentUrl = window.location.href; // 현재 페이지의 URL
+                var requestUrl = currentUrl + "/addEvent"
 
                 // 입력값 검증
                 if (!content) {
@@ -66,20 +70,39 @@
                     return;
                 }
 
-                // 일정 추가
-                window.calendar.addEvent({
-                    title: content,
-                    start: start_date,
-                    end: end_date
-                });
+                // 서버로 일정 추가 요청
+                $.ajax({
+                    url: requestUrl, // 현재 roomId를 기반으로 URL 생성
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        title: content,
+                        start: start_date,
+                        end: end_date
+                    }),
+                    success: function (response) {
+                        alert("일정이 성공적으로 추가되었습니다.");
 
-                // 모달 닫기 및 입력값 초기화
-                $("#calendarModal").modal("hide");
-                $("#calendar_content").val("");
-                $("#calendar_start_date").val("");
-                $("#calendar_end_date").val("");
+                        // 클라이언트 측 캘린더에도 추가
+                        window.calendar.addEvent({
+                            title: content,
+                            start: start_date,
+                            end: end_date
+                        });
+
+                        // 모달 닫기 및 입력값 초기화
+                        $("#calendarModal").modal("hide");
+                        $("#calendar_content").val("");
+                        $("#calendar_start_date").val("");
+                        $("#calendar_end_date").val("");
+                    },
+                    error: function (xhr, status, error) {
+                        alert("일정 추가 실패: " + xhr.responseText);
+                        console.log(requestUrl);
+                    }
+                });
             });
-        });
+        })
     </script>
 
     <title>Room</title>

@@ -6,6 +6,6 @@ import lombok.ToString;
 @Data
 @ToString
 public class MemberDto {
-    private String id;
+    private String username;
     private String password;
 }

@@ -20,7 +20,10 @@
     <script type="text/javascript" th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
+            // 서버로부터 events 데이터를 JSON 데이터로 변환
             var eventsData = /*[[${events}]]*/ [];
+
+            // eventsData 로부터 필요한 데이터만을 매핑 후 calendar의 events 변수에 보내준다.
             var events = eventsData.map(e => ({
                 title : e.content,
                 start : e.startDate,
@@ -121,7 +124,7 @@
                 <tbody>
                 <tr th:each="member : ${members}">
                     <td th:text="${member.id}"></td>
-                    <td th:text="${member.name}"></td>
+                    <td th:text="${member.username}"></td>
                 </tr>
                 </tbody>
             </table>

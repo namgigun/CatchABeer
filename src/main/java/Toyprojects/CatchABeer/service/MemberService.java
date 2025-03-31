@@ -6,6 +6,7 @@ import Toyprojects.CatchABeer.repository.MemberRepository;
 import Toyprojects.CatchABeer.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +19,15 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final RoomRepository roomRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // 회원가입
     @Transactional
     public Long join(Member member) {
         Room room = new Room("Room" + randomStr());
-        Member joinMember = new Member(member.getName(), member.getPassword(), room);
+        String encPassword = bCryptPasswordEncoder.encode(member.getPassword());
+
+        Member joinMember = new Member(member.getUsername(), encPassword, room);
         room.addMember(joinMember);
 
         roomRepository.save(room);
@@ -48,5 +52,9 @@ public class MemberService {
     public Member findOne(Long id) {
         Optional<Member> result = memberRepository.findById(id);
         return result.orElseThrow(null);
+    }
+
+    public Member findByUsername(String username) {
+        return memberRepository.findByUsername(username);
     }
 }

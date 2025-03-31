@@ -22,9 +22,9 @@ class EventServiceTest {
         roomService.save(room1);
 
         EventDto eventDto = new EventDto();
-        eventDto.setCalendar_content("content");
-        eventDto.setCalendar_start_date("sDate");
-        eventDto.setCalendar_end_date("eDate");
+        eventDto.setTitle("title");
+        eventDto.setStart("sDate");
+        eventDto.setEnd("eDate");
         eventDto.setRoom(room1);
 
         Event event = new Event(eventDto);

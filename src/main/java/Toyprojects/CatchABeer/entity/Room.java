@@ -38,4 +38,8 @@ public class Room {
     public void addEvent(Event event) {
         events.add(event);
     }
+
+    public void offMember(Member member) {
+        members.remove(member);
+    }
 }

@@ -57,4 +57,12 @@ public class MemberService {
     public Member findByUsername(String username) {
         return memberRepository.findByUsername(username);
     }
+
+    @Transactional
+    public void updateRoom(String username, Long roomId) {
+        Member member = memberRepository.findByUsername(username);
+        Room room = roomRepository.findById(roomId).orElseThrow();
+
+        member.changeRoom(room);
+    }
 }

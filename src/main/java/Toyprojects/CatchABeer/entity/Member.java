@@ -29,4 +29,12 @@ public class Member {
         this.username = username;
         this.password = password;
     }
+
+    public void changeRoom(Room room) {
+        // 기존 방에서 현재멤버 삭제
+        this.room.offMember(this);
+        // 기존 방을 새로운 방으로 바꾼 후 새방에 회원을 추가
+        this.room = room;
+        room.addMember(this);
+    }
 }

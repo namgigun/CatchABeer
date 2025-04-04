@@ -14,7 +14,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/room/**").authenticated()
+                        .requestMatchers("/room/**", "/invite/**").authenticated()
                         .anyRequest().permitAll())
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/")

@@ -14,24 +14,26 @@ public class Event {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "ROOM_ID")
-    private Room room;
-
     private String content;
     private String startDate;
     private String endDate;
 
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "ROOM_ID")
+    private Room room;
+
     public Event(EventDto eventDto) {
-        this.room = eventDto.getRoom();
         this.content = eventDto.getTitle();
         this.startDate = eventDto.getStart();
         this.endDate = eventDto.getEnd();
-        room.addEvent(this);
-    }
+        this.room = eventDto.getRoom();
+        this.member = eventDto.getMember();
 
-    public Event(Room room) {
-        this.room = room;
-        this.room.addEvent(this);
+        room.addEvent(this);
+        member.addEvent(this);
     }
 }

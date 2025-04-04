@@ -21,8 +21,4 @@ public class EventService {
     public void save(Event event) {
         eventRepository.save(event);
     }
-
-    public List<Event> findByRoom(Room room) {
-        return eventRepository.findByRoomId(room.getId());
-    }
 }

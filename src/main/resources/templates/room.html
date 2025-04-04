@@ -19,6 +19,7 @@
 
     <script type="text/javascript" th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function() {
+            const colors = ['#FF0000', '#0000FF', '#00AA00', '#FFA500', '#800080', '#00CED1'];
             var calendarEl = document.getElementById('calendar');
             // 서버로부터 events 데이터를 JSON 데이터로 변환
             var eventsData = /*[[${events}]]*/ [];
@@ -28,6 +29,7 @@
                 title : e.content,
                 start : e.startDate,
                 end : e.endDate
+            //     여기에 컬러를 user
             }))
 
             // 캘린더 객체를 전역 변수로 설정
@@ -90,7 +92,8 @@
                         window.calendar.addEvent({
                             title: content,
                             start: start_date,
-                            end: end_date
+                            end: end_date,
+                            color: userColor
                         });
 
                         // 모달 닫기 및 입력값 초기화

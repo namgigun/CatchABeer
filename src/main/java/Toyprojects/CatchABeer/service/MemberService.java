@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -41,23 +42,23 @@ public class MemberService {
         return RandomStringUtils.random(10);
     }
 
-    // 회원조회
-
     // 전체 회원 조회
     public List<Member> findAll() {
         return memberRepository.findAll();
     }
 
-    // 회원 한명 조회
+    // 회원 아이디 조회
     public Member findOne(Long id) {
         Optional<Member> result = memberRepository.findById(id);
         return result.orElseThrow(null);
     }
 
+    // 회원 이름 조회
     public Member findByUsername(String username) {
         return memberRepository.findByUsername(username);
     }
 
+    // 현재 로그인 한 회원의 방 정보 수정
     @Transactional
     public void updateRoom(String username, Long roomId) {
         Member member = memberRepository.findByUsername(username);

@@ -17,8 +17,6 @@ public class Room {
     @Column(name = "ROOM_ID")
     private Long id;
 
-    private String name;
-
     @JsonIgnore
     @OneToMany(mappedBy = "room")
     private List<Member> members = new ArrayList<>();
@@ -27,19 +25,15 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private List<Event> events = new ArrayList<>();
 
-    public Room(String name) {
-        this.name = name;
-    }
-
     public void addMember(Member member) {
         members.add(member);
     }
 
-    public void addEvent(Event event) {
-        events.add(event);
-    }
-
     public void offMember(Member member) {
         members.remove(member);
+    }
+
+    public void addEvent(Event event) {
+        events.add(event);
     }
 }

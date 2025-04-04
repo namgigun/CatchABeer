@@ -8,6 +8,4 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
-    @Query("select e from Event e where e.room.id = :roomId")
-    List<Event> findByRoomId(@Param("roomId") Long roomId);
 }

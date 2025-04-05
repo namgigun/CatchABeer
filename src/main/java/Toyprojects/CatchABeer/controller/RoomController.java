@@ -51,27 +51,30 @@ public class RoomController {
         Room room = roomService.findRoom(roomId);
 
         // 현재 room 안에 있는 member로 부터의 모든 데이터를 events 안에 넣어야함.
-        List<Event> events = new ArrayList<>();
+        List<Member> members = room.getMembers();
+        List<Event> events = room.getEvents();
 
-        model.addAttribute("members", room.getMembers());
+        model.addAttribute("members", members);
         model.addAttribute("events", events);
         return "room";
     }
 
-    // 일정 추가
+    // 일정 추가 (클라이언트로부터 Event 정보를 받아온다.)
     @PostMapping("room/{roomId}/addEvent")
-    public String addEvent(@RequestBody EventDto eventDto, @PathVariable Long roomId) {
+    public String addEvent(@RequestBody EventDto eventDto) {
         // 현재 로그인한 회원 정보 Event에 저장
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AccountDetails accountDetails = (AccountDetails)principal;
         String username = accountDetails.getUsername();
         Member loginMember = memberService.findByUsername(username);
-        eventDto.setMember(loginMember);
 
-        Event event = new Event(eventDto);
+        eventDto.setMember(loginMember);
+        eventDto.setRoom(loginMember.getRoom());
 
         // DB에 event 정보를 저장한다.
+        Event event = new Event(eventDto);
         eventService.save(event);
+
         return "room";
     }
 

@@ -25,9 +25,11 @@ public class MemberService {
     // 회원가입
     @Transactional
     public Long join(Member member) {
-        Room room = new Room("Room" + randomStr());
-        String encPassword = bCryptPasswordEncoder.encode(member.getPassword());
+        // 방 정보 생성
+        Room room = new Room();
 
+        // 멤버 정보 생성
+        String encPassword = bCryptPasswordEncoder.encode(member.getPassword());
         Member joinMember = new Member(member.getUsername(), encPassword, room);
         room.addMember(joinMember);
 
@@ -35,11 +37,6 @@ public class MemberService {
         memberRepository.save(joinMember);
 
         return joinMember.getId();
-    }
-
-    // 무작위 문자열 만들기
-    private String randomStr() {
-        return RandomStringUtils.random(10);
     }
 
     // 전체 회원 조회

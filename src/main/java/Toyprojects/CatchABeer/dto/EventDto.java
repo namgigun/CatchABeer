@@ -9,5 +9,6 @@ public class EventDto {
     private String title;
     private String start;
     private String end;
+    private Room room;
     private Member member;
 }

@@ -1,16 +1,19 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${SPRING_DATASOURCE_URL}
+#    로컬
+    url: jdbc:mysql://localhost:3306/Beer
+#    AWS
+#    url: jdbc:mysql://instagram-db.chooowyggnuu.ap-northeast-2.rds.amazonaws.com/Beer
     username: root
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    password: skarldms123
 
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect
 #    show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true

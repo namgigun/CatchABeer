@@ -5,14 +5,12 @@ import Toyprojects.CatchABeer.entity.Room;
 import Toyprojects.CatchABeer.repository.MemberRepository;
 import Toyprojects.CatchABeer.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -44,13 +42,13 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    // 회원 아이디 조회
+    // 회원 식별자 조회
     public Member findOne(Long id) {
         Optional<Member> result = memberRepository.findById(id);
         return result.orElseThrow(null);
     }
 
-    // 회원 이름 조회
+    // 회원 아이디 조회
     public Member findByUsername(String username) {
         return memberRepository.findByUsername(username);
     }

@@ -17,16 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Slf4j
 public class MemberController {
     private final MemberService memberService;
-    // 회원가입
+    /** 회원가입 **/
+    // 회원가입 페이지 불러오기
     @GetMapping("/signup")
     public String signup() {
         return "signup";
     }
 
-    @GetMapping("/")
-    public String login() {
-        return "loginForm";
-    }
+    // 회원 정보를 생성
     @PostMapping("/new")
     public String Register(@ModelAttribute MemberDto memberDto) {
         Member member = new Member(memberDto.getUsername(), memberDto.getPassword());
@@ -34,4 +32,11 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    // 로그인
+    @GetMapping("/")
+    public String login() {
+        return "loginForm";
+    }
+
 }

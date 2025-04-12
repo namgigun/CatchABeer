@@ -137,7 +137,6 @@ cmake-build-*/
 *.iws
 
 # IntelliJ
-application.properties
 application.yml
 out/
 

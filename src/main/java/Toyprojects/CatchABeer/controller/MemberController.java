@@ -33,10 +33,9 @@ public class MemberController {
         return "redirect:/";
     }
 
-    // 로그인
+    // 로그인 화면 호출
     @GetMapping("/")
     public String login() {
         return "loginForm";
     }
-
 }

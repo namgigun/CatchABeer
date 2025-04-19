@@ -1,10 +1,10 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    로컬
+#    로컬 DB URL
     url: jdbc:mysql://localhost:3306/Beer
-#    AWS
-#    url: jdbc:mysql://instagram-db.chooowyggnuu.ap-northeast-2.rds.amazonaws.com/Beer
+#    AWS DB URL
+#    url: jdbc:mysql://myserver-db.chooowyggnuu.ap-northeast-2.rds.amazonaws.com/Beer
     username: root
     password: skarldms123
 

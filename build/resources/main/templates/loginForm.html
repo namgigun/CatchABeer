@@ -73,6 +73,17 @@
         .signup-link:hover {
             text-decoration: underline;
         }
+
+        .alert {
+            padding: 12px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 
@@ -88,6 +99,10 @@
             <label for="password">비밀번호</label>
             <input type="password" id="password" name="password">
         </div>
+
+        <!-- 에러 메시지 -->
+        <div th:if="${error}" class="alert" th:text="${exception}"></div>
+
         <input type="submit" class="login-btn" value="로그인">
     </form>
     <a class="signup-link" href="/signup">회원가입</a>
